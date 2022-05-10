@@ -63,7 +63,7 @@ extension FriendsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? FriendCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "FriendsCell") as? FriendCell
         else {
             return UITableViewCell()
         }
@@ -81,7 +81,7 @@ extension FriendsViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 
-// MARK: - FriendViewInput
+// MARK: - FriendsViewInput
 extension FriendsViewController: FriendsViewInput {
     // Устанавливаем друзей в таблицу.
     func setFriends(friends: [FriendItemModel]) {
@@ -101,7 +101,7 @@ private extension FriendsViewController {
         tableView.frame = self.view.bounds
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
-        tableView.register(FriendCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(FriendCell.self, forCellReuseIdentifier: "FriendsCell")
         tableView.showsVerticalScrollIndicator = false
         tableView.delegate = self
         tableView.dataSource = self

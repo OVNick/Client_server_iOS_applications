@@ -37,6 +37,7 @@ private extension MainTabBarViewController {
         guard let groupsIcon = UIImage(systemName: "person.3") else { return }
         
         let friendsAssembly = FriendsAssembly.makeFriendsListVC()
+        let groupsAssembly = GroupsAssembly.makeGroupsListVC()
         
         // Cоздаем элементы панели вкладок.
         let friends = createNavController(for: friendsAssembly,
@@ -47,7 +48,7 @@ private extension MainTabBarViewController {
                                           title: "Новости",
                                           image: newsIcon)
 
-        let groups = createNavController(for: GroupsViewController(),
+        let groups = createNavController(for: groupsAssembly,
                                           title: "Группы",
                                           image: groupsIcon)
         

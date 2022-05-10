@@ -26,11 +26,27 @@ enum DTO {
             let photo50: String
 
             enum CodingKeys: String, CodingKey {
-                case id
+                case id = "id"
                 case firstName = "first_name"
                 case lastName = "last_name"
                 case photo50 = "photo_50"
             }
         }
     }
+    
+    /// Перечисление для сцены "Группы".
+    enum GroupsScene {
+        struct Group: Decodable {
+            let id: Int
+            let name: String
+            let photo50: String
+
+            enum CodingKeys: String, CodingKey {
+                case id = "id"
+                case name = "name"
+                case photo50 = "photo_50"
+            }
+        }
+    }
+    
 }

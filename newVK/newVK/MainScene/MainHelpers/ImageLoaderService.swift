@@ -13,7 +13,6 @@ protocol ImageLoaderServiceProtocol {
     func loadImage(url: URL, completion: @escaping (Result<Data,Error>) -> ())
 }
 
-
 final class ImageLoaderService: ImageLoaderServiceProtocol {
     
     private let session: URLSession = {

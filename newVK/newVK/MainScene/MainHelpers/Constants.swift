@@ -14,6 +14,8 @@ struct Constants {
         enum TypeMethods: String, CaseIterable {
             /// Запрос информации о друзьях пользователя.
             case friendsGet = "/method/friends.get"
+            /// Запрос информации о группах пользователя.
+            case groupsGet = "/method/groups.get"
         }
         case scheme = "https"
         case host = "api.vk.com"
