@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5E70F2AEE1FF78497C9CE46B /* Pods_newVK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF55AED196F3B9846320BE0C /* Pods_newVK.framework */; };
 		A83CA45528171B0B009A9F8D /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83CA45428171B0B009A9F8D /* LoginService.swift */; };
 		A83CA45728171C98009A9F8D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83CA45628171C98009A9F8D /* Constants.swift */; };
 		A83CA45928223B18009A9F8D /* LoginViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83CA45828223B18009A9F8D /* LoginViewOutput.swift */; };
@@ -68,6 +69,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		32C2EFC69FB03DD6008FC3EF /* Pods-newVK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newVK.release.xcconfig"; path = "Target Support Files/Pods-newVK/Pods-newVK.release.xcconfig"; sourceTree = "<group>"; };
+		3D47F4ECE06748858EF9C310 /* Pods-newVK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newVK.debug.xcconfig"; path = "Target Support Files/Pods-newVK/Pods-newVK.debug.xcconfig"; sourceTree = "<group>"; };
 		A83CA45428171B0B009A9F8D /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		A83CA45628171C98009A9F8D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A83CA45828223B18009A9F8D /* LoginViewOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewOutput.swift; sourceTree = "<group>"; };
@@ -129,6 +132,7 @@
 		A8FB5C46282B009C009DCC2D /* GroupsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsPresenter.swift; sourceTree = "<group>"; };
 		A8FB5C48282B025C009DCC2D /* GroupsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsInteractor.swift; sourceTree = "<group>"; };
 		A8FB5C4B282B035B009DCC2D /* GroupsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsService.swift; sourceTree = "<group>"; };
+		AF55AED196F3B9846320BE0C /* Pods_newVK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_newVK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,12 +140,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E70F2AEE1FF78497C9CE46B /* Pods_newVK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A4E928928D1F1D2538BAB499 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AF55AED196F3B9846320BE0C /* Pods_newVK.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A83CA45328171341009A9F8D /* LoginScene */ = {
 			isa = PBXGroup;
 			children = (
@@ -402,6 +415,8 @@
 			children = (
 				A88DFED12810845400662775 /* newVK */,
 				A88DFED02810845400662775 /* Products */,
+				FB3A78A1D1D8876FB0A561DD /* Pods */,
+				A4E928928D1F1D2538BAB499 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -576,6 +591,16 @@
 			path = Service;
 			sourceTree = "<group>";
 		};
+		FB3A78A1D1D8876FB0A561DD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3D47F4ECE06748858EF9C310 /* Pods-newVK.debug.xcconfig */,
+				32C2EFC69FB03DD6008FC3EF /* Pods-newVK.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -583,9 +608,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A88DFEE32810845600662775 /* Build configuration list for PBXNativeTarget "newVK" */;
 			buildPhases = (
+				16DC1CBF3D3D0BF32E0441E7 /* [CP] Check Pods Manifest.lock */,
 				A88DFECB2810845400662775 /* Sources */,
 				A88DFECC2810845400662775 /* Frameworks */,
 				A88DFECD2810845400662775 /* Resources */,
+				56A8B163B5E479DE38DD8142 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -641,6 +668,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		16DC1CBF3D3D0BF32E0441E7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-newVK-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		56A8B163B5E479DE38DD8142 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-newVK/Pods-newVK-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-newVK/Pods-newVK-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-newVK/Pods-newVK-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A88DFECB2810845400662775 /* Sources */ = {
@@ -839,6 +908,7 @@
 		};
 		A88DFEE42810845600662775 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3D47F4ECE06748858EF9C310 /* Pods-newVK.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -867,6 +937,7 @@
 		};
 		A88DFEE52810845600662775 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 32C2EFC69FB03DD6008FC3EF /* Pods-newVK.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
