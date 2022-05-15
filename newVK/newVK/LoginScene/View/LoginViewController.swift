@@ -8,27 +8,24 @@
 import UIKit
 import WebKit
 
-/// Входящий протокол формы авторизации.
-protocol LoginViewInput: AnyObject {
-    /// Загрузить страницу авторизации через WebView.
-    ///  - Parameter request: Запрос на авторизацию для WebView.
-    func loadAuthorization(with request: URLRequest)
-}
-
 /// Контроллер формы авторизации.
 final class LoginViewController: UIViewController {
     
     ///  Свойство, обрабатывающее исходящие события.
     var output: LoginViewOutput?
 
+    
     // MARK: - SubView
+    
     private lazy var webView: WKWebView = {
         let webConfiguration = WKWebViewConfiguration()
         let view = WKWebView(frame: .zero, configuration: webConfiguration)
         return view
     }()
     
+    
     // MARK: - LifeCycle
+    
     override func loadView() {
         super.loadView()
         self.view = webView
@@ -41,7 +38,9 @@ final class LoginViewController: UIViewController {
     }
 }
 
+
 // MARK: - LoginViewInput
+
 extension LoginViewController: LoginViewInput {
     func loadAuthorization(with request: URLRequest) {
         // Загружаем на WebView страницу авторизации.
@@ -49,7 +48,9 @@ extension LoginViewController: LoginViewInput {
     }
 }
 
+
 // MARK: - WKNavigationDelegate
+
 extension LoginViewController: WKNavigationDelegate {
     /// Конфигурируем WebView.
     func configureWebView() {

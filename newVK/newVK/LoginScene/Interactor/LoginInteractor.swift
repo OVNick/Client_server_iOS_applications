@@ -8,20 +8,6 @@
 import Foundation
 import WebKit
 
-/// Входящий протокол интерактора формы авторизации.
-protocol LoginInteractorInput {
-    /// Создать запрос на авторизацию.
-    ///  - Returns: Запрос на авторизацию.
-    func makeRequestAuthorizationScene() -> URLRequest
-
-    /// Отследить и обработать ответ сервера при переходе.
-    func makeRequestWebView(_ webView: WKWebView,
-                            decidePolicyFor navigationResponse: WKNavigationResponse,
-                            decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void,
-                            isValidKeys: @escaping (Bool) -> Void)
-}
-
-
 /// Интерактор для формы авторизации через WebView.
 final class LoginInteractor {
     
@@ -77,6 +63,7 @@ extension LoginInteractor: LoginInteractorInput {
            let id = Int(userId) {
             Session.instance.userId = id
             Session.instance.token = token
+            print("token: \(token)")
             isValidKeys(true)
         } else {
             isValidKeys(false)

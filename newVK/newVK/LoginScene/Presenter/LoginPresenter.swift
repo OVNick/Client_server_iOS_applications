@@ -39,6 +39,7 @@ extension LoginPresenter: LoginViewOutput {
         view?.loadAuthorization(with: request)
     }
 
+    // Собираем webView.
     func makeWebView(_ webView: WKWebView,
                      decidePolicyFor navigationResponse: WKNavigationResponse,
                      decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {

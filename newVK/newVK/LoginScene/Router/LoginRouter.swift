@@ -7,12 +7,6 @@
 
 import UIKit
 
-/// Входящий протокол роутера формы авторизации.
-protocol LoginRouterInput {
-    /// Открыть главную сцену.
-    func openMainScene()
-}
-
 /// Роутер формы авторизации.
 final class LoginRouter {
     
