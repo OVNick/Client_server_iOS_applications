@@ -10,5 +10,5 @@ import Foundation
 /// Входящий протокол сервиса сцены "Группы".
 protocol GroupsServiceInput {
     /// Загрузить группы текущего пользователя.
-    func loadGroups(completion: @escaping ((Result<[DTO.GroupsScene.Group], GroupsServiceError>) -> ()))
+    func loadGroups(completion: @escaping ((Result<[GroupModel], GroupsServiceError>) -> ()))
 }

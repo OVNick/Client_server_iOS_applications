@@ -30,7 +30,7 @@ final class FriendsService: FriendsServiceInput {
     // MARK: - FriendsServiceInput
         
     // Загружаем друзей текущего пользователя.
-    func loadFriends(completion: @escaping ((Result<[DTO.FriendsScene.Friend], FriendsServiceError>) -> ())) {
+    func loadFriends(completion: @escaping ((Result<[FriendModel], FriendsServiceError>) -> ())) {
         
         // Получаем токен текущего пользователя из синглтона "Session".
         guard let token = Session.instance.token else { return }
@@ -57,7 +57,7 @@ final class FriendsService: FriendsServiceInput {
                 return
             }
             do {
-                let result = try JSONDecoder().decode(DTO.Response<DTO.FriendsScene.Friend>.self, from: data).response.items
+                let result = try JSONDecoder().decode(FriendsResponce.self, from: data).response.items
                 completion(.success(result))
             } catch {
                 completion(.failure(.parseError))

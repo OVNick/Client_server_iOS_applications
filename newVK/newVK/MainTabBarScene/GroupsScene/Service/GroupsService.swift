@@ -28,7 +28,7 @@ final class GroupsService: GroupsServiceInput {
     // MARK: - GroupsServiceInput
     
     // Загружаем группы текущего пользователя.
-    func loadGroups(completion: @escaping ((Result<[DTO.GroupsScene.Group], GroupsServiceError>) -> ())) {
+    func loadGroups(completion: @escaping ((Result<[GroupModel], GroupsServiceError>) -> ())) {
         
         // Получаем токен текущего пользователя из синглтона "Session".
         guard let token = Session.instance.token else { return }
@@ -56,7 +56,7 @@ final class GroupsService: GroupsServiceInput {
                 return
             }
             do {
-                let result = try JSONDecoder().decode(DTO.Response<DTO.GroupsScene.Group>.self, from: data).response.items
+                let result = try JSONDecoder().decode(GroupResponce.self, from: data).response.items
                 completion(.success(result))
             } catch {
                 completion(.failure(.parseError))

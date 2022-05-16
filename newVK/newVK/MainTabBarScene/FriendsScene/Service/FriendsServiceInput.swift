@@ -10,5 +10,5 @@ import Foundation
 /// Входящий протокол сервиса сцены "Друзья".
 protocol FriendsServiceInput {
     /// Загрузить друзей текущего пользователя.
-    func loadFriends(completion: @escaping ((Result<[DTO.FriendsScene.Friend], FriendsServiceError>) -> ()))
+    func loadFriends(completion: @escaping ((Result<[FriendModel], FriendsServiceError>) -> ()))
 }

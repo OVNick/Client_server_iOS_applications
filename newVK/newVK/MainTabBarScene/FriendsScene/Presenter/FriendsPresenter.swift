@@ -53,7 +53,7 @@ extension FriendsPresenter: FriendsViewOutput {
 private extension FriendsPresenter {
     
     /// Формирование массива друзей.
-    func formFriendsArray(from array: [DTO.FriendsScene.Friend]?) -> [FriendItemModel] {
+    func formFriendsArray(from array: [FriendModel]?) -> [FriendItemModel] {
         
         guard let array = array else {
             return []

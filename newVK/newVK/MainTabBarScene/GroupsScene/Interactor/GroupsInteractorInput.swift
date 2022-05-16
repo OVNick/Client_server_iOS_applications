@@ -10,5 +10,5 @@ import Foundation
 /// Входящий протокол интерактора  сцены "Группы".
 protocol GroupsInteractorInput {
     /// Загрузить группы.
-    func loadGroups(completion: @escaping ([DTO.GroupsScene.Group]) -> Void)
+    func loadGroups(completion: @escaping ([GroupModel]) -> Void)
 }
