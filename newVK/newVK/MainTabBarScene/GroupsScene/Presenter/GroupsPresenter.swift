@@ -41,7 +41,7 @@ extension GroupsPresenter: GroupsViewOutput {
 private extension GroupsPresenter {
     
     /// Формирование массива групп.
-    func formGroupsArray(from array: [DTO.GroupsScene.Group]?) -> [GroupItemModel] {
+    func formGroupsArray(from array: [GroupModel]?) -> [GroupItemModel] {
         
         guard let array = array else {
             return []

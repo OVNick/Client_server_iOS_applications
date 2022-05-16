@@ -30,7 +30,7 @@ extension FriendsInteractor: FriendsInteractorInput {
     }
     
     // Загружаем друзей.
-    func loadFriends(completion: @escaping ([DTO.FriendsScene.Friend]) -> Void) {
+    func loadFriends(completion: @escaping ([FriendModel]) -> Void) {
         service.loadFriends { result in
             switch result {
             case .success(let friends):

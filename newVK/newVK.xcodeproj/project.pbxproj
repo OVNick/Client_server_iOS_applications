@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5E70F2AEE1FF78497C9CE46B /* Pods_newVK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF55AED196F3B9846320BE0C /* Pods_newVK.framework */; };
+		A836682F2832B63D00191A44 /* FriendsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A836682E2832B63D00191A44 /* FriendsModel.swift */; };
 		A83CA45528171B0B009A9F8D /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83CA45428171B0B009A9F8D /* LoginService.swift */; };
 		A83CA45728171C98009A9F8D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83CA45628171C98009A9F8D /* Constants.swift */; };
 		A83CA45928223B18009A9F8D /* LoginViewOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83CA45828223B18009A9F8D /* LoginViewOutput.swift */; };
@@ -21,6 +22,7 @@
 		A83CA4862823ACB9009A9F8D /* GroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83CA4852823ACB9009A9F8D /* GroupsViewController.swift */; };
 		A84D8E8F282B07DF006789DE /* GroupsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84D8E8E282B07DE006789DE /* GroupsAssembly.swift */; };
 		A88296172811C5CD00B9EF10 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88296162811C5CD00B9EF10 /* Session.swift */; };
+		A88921842832CB700084E7AB /* GroupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88921832832CB700084E7AB /* GroupModel.swift */; };
 		A88DFED32810845400662775 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88DFED22810845400662775 /* AppDelegate.swift */; };
 		A88DFED52810845400662775 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88DFED42810845400662775 /* SceneDelegate.swift */; };
 		A88DFED72810845400662775 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88DFED62810845400662775 /* LoginViewController.swift */; };
@@ -71,6 +73,7 @@
 /* Begin PBXFileReference section */
 		32C2EFC69FB03DD6008FC3EF /* Pods-newVK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newVK.release.xcconfig"; path = "Target Support Files/Pods-newVK/Pods-newVK.release.xcconfig"; sourceTree = "<group>"; };
 		3D47F4ECE06748858EF9C310 /* Pods-newVK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-newVK.debug.xcconfig"; path = "Target Support Files/Pods-newVK/Pods-newVK.debug.xcconfig"; sourceTree = "<group>"; };
+		A836682E2832B63D00191A44 /* FriendsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsModel.swift; sourceTree = "<group>"; };
 		A83CA45428171B0B009A9F8D /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		A83CA45628171C98009A9F8D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A83CA45828223B18009A9F8D /* LoginViewOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewOutput.swift; sourceTree = "<group>"; };
@@ -84,6 +87,7 @@
 		A83CA4852823ACB9009A9F8D /* GroupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsViewController.swift; sourceTree = "<group>"; };
 		A84D8E8E282B07DE006789DE /* GroupsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsAssembly.swift; sourceTree = "<group>"; };
 		A88296162811C5CD00B9EF10 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		A88921832832CB700084E7AB /* GroupModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupModel.swift; sourceTree = "<group>"; };
 		A88DFECF2810845400662775 /* newVK.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = newVK.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A88DFED22810845400662775 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A88DFED42810845400662775 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -153,6 +157,14 @@
 				AF55AED196F3B9846320BE0C /* Pods_newVK.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A8261E612832B5CB00D8E1BF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A836682E2832B63D00191A44 /* FriendsModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		A83CA45328171341009A9F8D /* LoginScene */ = {
@@ -410,6 +422,14 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		A88921822832CB160084E7AB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A88921832832CB700084E7AB /* GroupModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		A88DFEC62810845400662775 = {
 			isa = PBXGroup;
 			children = (
@@ -540,6 +560,7 @@
 		A8FB5C26282A46D7009DCC2D /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				A8261E612832B5CB00D8E1BF /* Model */,
 				A8FB5C31282A5A5D009DCC2D /* FriendsService.swift */,
 				A8CCE7712830FD9000FCB199 /* FriendsServiceInput.swift */,
 			);
@@ -585,6 +606,7 @@
 		A8FB5C4A282B0342009DCC2D /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				A88921822832CB160084E7AB /* Model */,
 				A8FB5C4B282B035B009DCC2D /* GroupsService.swift */,
 				A8CCE777283101C400FCB199 /* GroupsServiceInput.swift */,
 			);
@@ -597,7 +619,6 @@
 				3D47F4ECE06748858EF9C310 /* Pods-newVK.debug.xcconfig */,
 				32C2EFC69FB03DD6008FC3EF /* Pods-newVK.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -727,6 +748,7 @@
 				A8C47DB628300BFE00ECCD1D /* DataManager.swift in Sources */,
 				A8CCE776283100B000FCB199 /* GroupsInteractorInput.swift in Sources */,
 				A8FB5C43282AFBDA009DCC2D /* GroupsViewOutput.swift in Sources */,
+				A88921842832CB700084E7AB /* GroupModel.swift in Sources */,
 				A8C47DB2282FF6AF00ECCD1D /* FriendsRouter.swift in Sources */,
 				A8C47DA6282F9CD500ECCD1D /* PhotoServiceInput.swift in Sources */,
 				A83CA4822823ABF3009A9F8D /* FriendsViewController.swift in Sources */,
@@ -767,6 +789,7 @@
 				A8FB5C36282A61F5009DCC2D /* FriendsPresenter.swift in Sources */,
 				A8CCE7682830EE9E00FCB199 /* LoginInteractorInput.swift in Sources */,
 				A83CA4632822B7F1009A9F8D /* LoginInteractor.swift in Sources */,
+				A836682F2832B63D00191A44 /* FriendsModel.swift in Sources */,
 				A83CA45728171C98009A9F8D /* Constants.swift in Sources */,
 				A8CCE76A2830F72D00FCB199 /* LoginServiceInput.swift in Sources */,
 				A83CA4862823ACB9009A9F8D /* GroupsViewController.swift in Sources */,

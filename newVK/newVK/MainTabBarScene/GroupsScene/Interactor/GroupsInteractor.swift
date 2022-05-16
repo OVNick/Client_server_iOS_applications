@@ -24,7 +24,7 @@ final class GroupsInteractor {
 
 extension GroupsInteractor: GroupsInteractorInput {
     // Загружаем группы.
-    func loadGroups(completion: @escaping ([DTO.GroupsScene.Group]) -> Void) {
+    func loadGroups(completion: @escaping ([GroupModel]) -> Void) {
         service.loadGroups { result in
             switch result {
             case .success(let groups):
