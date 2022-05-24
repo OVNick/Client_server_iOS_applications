@@ -9,6 +9,10 @@ import Foundation
 
 /// Входящий протокол сервиса сцены "Группы".
 protocol GroupsServiceInput {
-    /// Загрузить группы текущего пользователя.
-    func loadGroups(completion: @escaping ((Result<[GroupModel], GroupsServiceError>) -> ()))
+    
+    /// Обновить данные.
+    func updateData(completion: @escaping (Bool) -> Void)
+    
+    /// Загрузить данные.
+    func loadData (completion: @escaping ([GroupModel]) -> Void)
 }

@@ -23,15 +23,19 @@ final class GroupsInteractor {
 // MARK: - GroupsInteractorInput
 
 extension GroupsInteractor: GroupsInteractorInput {
-    // Загружаем группы.
-    func loadGroups(completion: @escaping ([GroupModel]) -> Void) {
-        service.loadGroups { result in
-            switch result {
-            case .success(let groups):
-                completion(groups)
-            case .failure(_):
-                return
-            }
+    
+    // Загружаем данные групп.
+    func loadGroupsData(completion: @escaping ([GroupModel]) -> Void) {
+        
+        service.loadData { data in
+            completion(data)
+        }
+    }
+    
+    // Обновляем данные групп.
+    func updateGroupsData(completion: @escaping (Bool) -> Void) {
+        service.updateData { updateFlag in
+            completion(updateFlag)
         }
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 // MARK: - Error
 
@@ -17,6 +18,7 @@ enum GroupsServiceError: Error {
     case requestError(Error)
 }
 
+/// Сервис сцены "Группы".
 final class GroupsService: GroupsServiceInput {
     
     private let session: URLSession = {
@@ -24,11 +26,12 @@ final class GroupsService: GroupsServiceInput {
         let session = URLSession(configuration: config)
         return session
     }()
-
+    
+    
     // MARK: - GroupsServiceInput
     
-    // Загружаем группы текущего пользователя.
-    func loadGroups(completion: @escaping ((Result<[GroupModel], GroupsServiceError>) -> ())) {
+    // Обновляем данные.
+    func updateData(completion: @escaping (Bool) -> Void) {
         
         // Получаем токен текущего пользователя из синглтона "Session".
         guard let token = Session.instance.token else { return }
@@ -46,23 +49,70 @@ final class GroupsService: GroupsServiceInput {
                                            method: .groupsGet,
                                            httpMethod: .get,
                                            params: params)
-
-        // Извлекаем содержимое URL-адреса и вызывает обработчик по завершении.
-        let task = session.dataTask(with: url) { data, response, error in
-            guard let data = data, error == nil else {
-                if let error = error {
-                    completion(.failure(.requestError(error)))
+        
+        DispatchQueue.global(qos: .utility).async {
+            // Извлекаем содержимое URL-адреса и вызывает обработчик по завершении.
+            let task = self.session.dataTask(with: url) { data, _, error in
+                
+                guard let data = data, error == nil else {
+                    if let error = error {
+                        print(GroupsServiceError.requestError(error))
+                    }
+                    return
                 }
-                return
+                
+                do {
+                    let result = try JSONDecoder().decode(GroupResponce.self, from: data).response.items
+                    
+                    let updateFlag = self.saveDataInRealm(groups: result)
+                    completion(updateFlag)
+                    
+                } catch {
+                    print(GroupsServiceError.parseError)
+                }
             }
-            do {
-                let result = try JSONDecoder().decode(GroupResponce.self, from: data).response.items
-                completion(.success(result))
-            } catch {
-                completion(.failure(.parseError))
-            }
+            task.resume()
         }
-        task.resume()
+    }
+    
+    // Загружаем данные.
+    func loadData(completion: @escaping ([GroupModel]) -> Void) {
+        let data = self.loadDataFromRealm()
+        completion(data)
+    }
+}
+
+
+// MARK: - Private
+
+extension GroupsService {
+    
+    /// Сохранение данных в Realm.
+    func saveDataInRealm(groups: [GroupModel]) -> Bool {
+        do {
+            let realm = try Realm()
+            print(realm.configuration.fileURL ?? "")
+            try realm.write {
+                realm.add(groups, update: .modified)
+            }
+        } catch {
+            print("Error: \(error.localizedDescription)")
+        }
+        return true
+    }
+    
+    /// Загрузка данных из Realm.
+    func loadDataFromRealm() -> [GroupModel] {
+        var groups: [GroupModel] = []
+        
+        do {
+            let realm = try Realm()
+            let data = realm.objects(GroupModel.self)
+            groups = Array(data)
+        } catch let error as NSError {
+            print("Error: \(error.localizedDescription)")
+        }
+        return groups
     }
 }
 
@@ -75,18 +125,18 @@ extension URL {
                                    httpMethod: Constants.Service,
                                    params: [String: String]) -> URL {
         var queryItems: [URLQueryItem] = []
-
+        
         params.forEach { param, value in
             queryItems.append(URLQueryItem(name: param, value: value))
         }
-
+        
         /// Конструктор URL.
         var urlComponents = URLComponents()
         urlComponents.scheme = Constants.Service.scheme.rawValue
         urlComponents.host = Constants.Service.host.rawValue
         urlComponents.path = method.rawValue
         urlComponents.queryItems = queryItems
-
+        
         guard let url = urlComponents.url else {
             fatalError("URL is invalidate")
         }

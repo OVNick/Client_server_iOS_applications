@@ -9,6 +9,8 @@ import Foundation
 
 /// Исходящий протокол сцены "Группы".
 protocol GroupsViewOutput {
-    /// Загрузить группы.
-    func loadGroupsData()
+    /// Загрузка групп в tableView.
+    func loadGroups()
+    /// Обновление данных о группах.
+    func updateGroups()
 }

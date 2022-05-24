@@ -16,8 +16,6 @@ enum FriendsServiceError: Error {
     case parseError
     /// Ошибка запроса.
     case requestError(Error)
-    /// Ошибка при получении токена.
-    case loadTokenError
 }
 
 /// Cервис сцены "Друзья".
@@ -85,6 +83,7 @@ final class FriendsService: FriendsServiceInput {
 
 
 // MARK: - Private
+
 extension FriendsService {
     
     /// Сохранение данных в Realm.
