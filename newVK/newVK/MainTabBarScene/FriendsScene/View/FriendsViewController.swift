@@ -36,6 +36,22 @@ final class FriendsViewController: UIViewController {
         return tableView
     }()
     
+    /// refreshControl для обновления таблицы друзей.
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
+        return refreshControl
+    }()
+    
+    /// Обновление таблицы друзей.
+    @objc private func refresh(sender: UIRefreshControl) {
+        output?.updateFriends()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+        sender.endRefreshing()
+    }
+    
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
@@ -43,7 +59,13 @@ final class FriendsViewController: UIViewController {
         
         setupTableView()
         setupConstraints()
-        output?.loadFriendsData()
+        output?.loadFriends()
+        tableView.refreshControl = refreshControl
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        // Обновление данных о друзьях.
+        output?.updateFriends()
     }
 }
 

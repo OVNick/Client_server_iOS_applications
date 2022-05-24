@@ -37,6 +37,22 @@ final class GroupsViewController: UIViewController {
         return tableView
     }()
     
+    /// refreshControl для обновления таблицы групп.
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
+        return refreshControl
+    }()
+    
+    /// Обновление таблицы групп.
+    @objc private func refresh(sender: UIRefreshControl) {
+        output?.updateGroups()
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
+        sender.endRefreshing()
+    }
+    
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
@@ -44,7 +60,13 @@ final class GroupsViewController: UIViewController {
      
         setupTableView()
         setupConstraints()
-        output?.loadGroupsData()
+        output?.loadGroups()
+        tableView.refreshControl = refreshControl
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        // Обновление данных о друзьях.
+        output?.updateGroups()
     }
 }
 

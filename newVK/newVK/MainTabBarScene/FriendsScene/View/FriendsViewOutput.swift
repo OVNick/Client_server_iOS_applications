@@ -9,8 +9,10 @@ import Foundation
 
 /// Исходящий протокол сцены "Друзья".
 protocol FriendsViewOutput {
-    /// Загрузить друзей.
-    func loadFriendsData()
     ///  Обработать нажатие на ячейку.
     func cellTapAction(userId: Int)
+    /// Загрузка друзей в tableView.
+    func loadFriends()
+    /// Обновление данных о друзьях.
+    func updateFriends()
 }

@@ -9,6 +9,10 @@ import Foundation
 
 /// Входящий протокол интерактора  сцены "Группы".
 protocol GroupsInteractorInput {
-    /// Загрузить группы.
-    func loadGroups(completion: @escaping ([GroupModel]) -> Void)
+    
+    /// Загрузить данные групп.
+    func loadGroupsData(completion: @escaping ([GroupModel]) -> Void)
+    
+    /// Обновить данные групп.
+    func updateGroupsData(completion: @escaping (Bool) -> Void)
 }

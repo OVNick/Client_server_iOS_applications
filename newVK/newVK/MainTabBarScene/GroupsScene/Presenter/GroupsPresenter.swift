@@ -15,6 +15,7 @@ final class GroupsPresenter {
     private let interactor: GroupsInteractorInput
     private let items: [GroupItemModel] = []
 
+    /// Инициализатор сцены "Группы".
     init(interactor: GroupsInteractorInput) {
         self.interactor = interactor
     }
@@ -26,11 +27,21 @@ final class GroupsPresenter {
 extension GroupsPresenter: GroupsViewOutput {
     
     // Загружаем группы.
-    func loadGroupsData() {
-        interactor.loadGroups { [weak self] groups in
+    func loadGroups() {
+        interactor.loadGroupsData { [weak self] groups in
             guard let self = self else { return }
             let items = self.formGroupsArray(from: groups)
             self.view?.setGroups(groups: items)
+        }
+    }
+    
+    // Обновление данных о группах, загрузка и установка в tableView.
+    func updateGroups() {
+        interactor.updateGroupsData { [weak self] updateFlag in
+            guard let self = self else { return }
+            if updateFlag {
+                self.loadGroups()
+            }
         }
     }
 }
@@ -47,12 +58,16 @@ private extension GroupsPresenter {
             return []
         }
 
-        let newItemsArray = array.compactMap { group -> GroupItemModel in
+        var itemsArray = array.compactMap { group -> GroupItemModel in
+            
             let model = GroupItemModel(title: group.name,
                                         icon: group.photo50)
             return model
         }
         
-        return newItemsArray
+        // Cортируем друзей по алфавиту.
+        itemsArray.sort(by: {$0.title < $1.title})
+        
+        return itemsArray
     }
 }

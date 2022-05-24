@@ -29,15 +29,18 @@ extension FriendsInteractor: FriendsInteractorInput {
         DataManager.id = userId
     }
     
-    // Загружаем друзей.
-    func loadFriends(completion: @escaping ([FriendModel]) -> Void) {
-        service.loadFriends { result in
-            switch result {
-            case .success(let friends):
-                completion(friends)
-            case .failure(_):
-                return
-            }
+    // Загружаем данные друзей.
+    func loadFriendsData(completion: @escaping ([FriendModel]) -> Void) {
+        
+        service.loadData { data in
+            completion(data)
+        }
+    }
+    
+    // Обновляем данные друзей.
+    func updateFriendsData(completion: @escaping (Bool) -> Void) {
+        service.updateData { updateFlag in
+            completion(updateFlag)
         }
     }
 }
