@@ -15,7 +15,7 @@ final class FriendsPresenter {
     private let router: FriendsRouterInput
     private let interactor: FriendsInteractorInput
     private let items: [FriendItemModel] = []
-
+    
     /// Инициализатор сцены "Друзья".
     init(router: FriendsRouterInput,
          interactor: FriendsInteractorInput) {
@@ -23,18 +23,28 @@ final class FriendsPresenter {
         self.interactor = interactor
     }
 }
- 
+
 
 // MARK: - FriendsViewOutput
 
 extension FriendsPresenter: FriendsViewOutput {
     
-    // Загружаем друзей.
-    func loadFriendsData() {
-        interactor.loadFriends { [weak self] friends in
+    // Загрузка друзей и установка в tabelView.
+    func loadFriends() {
+        interactor.loadFriendsData { [weak self] friends in
             guard let self = self else { return }
             let items = self.formFriendsArray(from: friends)
             self.view?.setFriends(friends: items)
+        }
+    }
+    
+    // Обновление данных о друзьях, загрузка и установка в tableView.
+    func updateFriends() {
+        interactor.updateFriendsData { [weak self] updateFlag in
+            guard let self = self else { return }
+            if updateFlag {
+                self.loadFriends()
+            }
         }
     }
     
@@ -58,14 +68,18 @@ private extension FriendsPresenter {
         guard let array = array else {
             return []
         }
-
-        let itemsArray = array.compactMap { friend -> FriendItemModel in
+        
+        var itemsArray = array.compactMap { friend -> FriendItemModel in
+            
             let model = FriendItemModel(id: friend.id,
                                         title: friend.firstName,
                                         subtitle: friend.lastName,
                                         icon: friend.photo50)
             return model
         }
+        
+        // Cортируем друзей по алфавиту.
+        itemsArray.sort(by: {$0.title < $1.title})
         
         return itemsArray
     }

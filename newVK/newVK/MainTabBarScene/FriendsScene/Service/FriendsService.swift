@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 // MARK: - Error
 
@@ -15,6 +16,8 @@ enum FriendsServiceError: Error {
     case parseError
     /// Ошибка запроса.
     case requestError(Error)
+    /// Ошибка при получении токена.
+    case loadTokenError
 }
 
 /// Cервис сцены "Друзья".
@@ -25,12 +28,12 @@ final class FriendsService: FriendsServiceInput {
         let session = URLSession(configuration: config)
         return session
     }()
-
+    
     
     // MARK: - FriendsServiceInput
-        
-    // Загружаем друзей текущего пользователя.
-    func loadFriends(completion: @escaping ((Result<[FriendModel], FriendsServiceError>) -> ())) {
+    
+    // Обновляем данные.
+    func updateData(completion: @escaping (Bool) -> Void) {
         
         // Получаем токен текущего пользователя из синглтона "Session".
         guard let token = Session.instance.token else { return }
@@ -47,23 +50,69 @@ final class FriendsService: FriendsServiceInput {
                                             method: .friendsGet,
                                             httpMethod: .get,
                                             params: params)
-
-        // Извлекаем содержимое URL-адреса и вызывает обработчик по завершении.
-        let task = session.dataTask(with: url) { data, response, error in
-            guard let data = data, error == nil else {
-                if let error = error {
-                    completion(.failure(.requestError(error)))
+        
+        DispatchQueue.global(qos: .utility).async {
+            // Извлекаем содержимое URL-адреса и вызывает обработчик по завершении.
+            let task = self.session.dataTask(with: url) { data, _, error in
+                
+                guard let data = data, error == nil else {
+                    if let error = error {
+                        print(FriendsServiceError.requestError(error))
+                    }
+                    return
                 }
-                return
+                
+                do {
+                    let result = try JSONDecoder().decode(FriendsResponce.self, from: data).response.items
+                    
+                    let updateFlag = self.saveDataInRealm(friends: result)
+                    completion(updateFlag)
+                    
+                } catch {
+                    print(FriendsServiceError.parseError)
+                }
             }
-            do {
-                let result = try JSONDecoder().decode(FriendsResponce.self, from: data).response.items
-                completion(.success(result))
-            } catch {
-                completion(.failure(.parseError))
-            }
+            task.resume()
         }
-        task.resume()
+    }
+    
+    // Загружаем данные.
+    func loadData(completion: @escaping ([FriendModel]) -> Void) {
+        let data = self.loadDataFromRealm()
+        completion(data)
+    }
+}
+
+
+// MARK: - Private
+extension FriendsService {
+    
+    /// Сохранение данных в Realm.
+    func saveDataInRealm(friends: [FriendModel]) -> Bool {
+        do {
+            let realm = try Realm()
+            print(realm.configuration.fileURL ?? "")
+            try realm.write {
+                realm.add(friends, update: .modified)
+            }
+        } catch {
+            print("Error: \(error.localizedDescription)")
+        }
+        return true
+    }
+    
+    /// Загрузка данных из Realm.
+    func loadDataFromRealm() -> [FriendModel] {
+        var friends: [FriendModel] = []
+        
+        do {
+            let realm = try Realm()
+            let data = realm.objects(FriendModel.self)
+            friends = Array(data)
+        } catch let error as NSError {
+            print("Error: \(error.localizedDescription)")
+        }
+        return friends
     }
 }
 
@@ -77,18 +126,18 @@ extension URL {
                                     httpMethod: Constants.Service,
                                     params: [String: String]) -> URL {
         var queryItems: [URLQueryItem] = []
-
+        
         params.forEach { param, value in
             queryItems.append(URLQueryItem(name: param, value: value))
         }
-
+        
         /// Конструктор URL.
         var urlComponents = URLComponents()
         urlComponents.scheme = Constants.Service.scheme.rawValue
         urlComponents.host = Constants.Service.host.rawValue
         urlComponents.path = method.rawValue
         urlComponents.queryItems = queryItems
-
+        
         guard let url = urlComponents.url else {
             fatalError("URL is invalidate")
         }

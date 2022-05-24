@@ -9,6 +9,10 @@ import Foundation
 
 /// Входящий протокол сервиса сцены "Друзья".
 protocol FriendsServiceInput {
-    /// Загрузить друзей текущего пользователя.
-    func loadFriends(completion: @escaping ((Result<[FriendModel], FriendsServiceError>) -> ()))
+    
+    /// Обновить данные.
+    func updateData(completion: @escaping (Bool) -> Void)
+    
+    /// Загрузить данные.
+    func loadData (completion: @escaping ([FriendModel]) -> Void)
 }
