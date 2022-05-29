@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 /// Контроллер сцены "Друзья".
 final class FriendsViewController: UIViewController {
@@ -17,6 +18,14 @@ final class FriendsViewController: UIViewController {
     
     ///  Свойство, обрабатывающее исходящие события.
     var output: FriendsViewOutput?
+    
+    let realm = RealmCacheService()
+
+    private var friendsRespons: Results<FriendModel>? {
+        realm.read(FriendModel.self)
+    }
+
+    private var notificationToken: NotificationToken?
     
     private let imageProvider: ImageLoaderHelperProtocol
 
@@ -60,6 +69,7 @@ final class FriendsViewController: UIViewController {
         setupTableView()
         setupConstraints()
         output?.loadFriends()
+        createNotificationToken()
         tableView.refreshControl = refreshControl
     }
     
@@ -79,7 +89,7 @@ extension FriendsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return friends.count
+        return friendsRespons?.count ?? 0 //friends.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -89,13 +99,22 @@ extension FriendsViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         
-        let item = friends[indexPath.row]
-        
-        imageProvider.loadImage(url: item.icon) { image in
-            cell.iconFriend = image
+        if let friends = friendsRespons {
+            imageProvider.loadImage(url: friends[indexPath.row].photo50) { image in
+                
+                cell.iconFriend = image
+            }
+            
+            cell.configureCellForRealm(with: friends[indexPath.row])
         }
         
-        cell.configureCell(With: item)
+//        let item = friends[indexPath.row]
+//
+//        imageProvider.loadImage(url: item.icon) { image in
+//            cell.iconFriend = image
+//        }
+//
+//        cell.configureCell(With: item)
         
         return cell
     }
@@ -150,5 +169,32 @@ private extension FriendsViewController {
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+    
+    func createNotificationToken() {
+        notificationToken = friendsRespons?.observe { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .initial(let friendsData):
+                print("\(friendsData.count)")
+            case .update(_,
+                         deletions: let deletions,
+                         insertions: let insertions,
+                         modifications: let modifications):
+                let deletionsIndexpath = deletions.map { IndexPath(row: $0, section: 0) }
+                let insertionsIndexpath = insertions.map { IndexPath(row: $0, section: 0) }
+                let modificationsIndexpath = modifications.map { IndexPath(row: $0, section: 0) }
+
+                DispatchQueue.main.async {
+                    self.tableView.beginUpdates()
+                    self.tableView.deleteRows(at: deletionsIndexpath, with: .automatic)
+                    self.tableView.insertRows(at: insertionsIndexpath, with: .automatic)
+                    self.tableView.reloadRows(at: modificationsIndexpath, with: .automatic)
+                    self.tableView.endUpdates()
+                }
+            case .error(let error):
+                print("\(error)")
+            }
+        }
     }
 }

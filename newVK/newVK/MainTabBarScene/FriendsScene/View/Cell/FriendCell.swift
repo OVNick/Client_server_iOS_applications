@@ -75,6 +75,11 @@ final class FriendCell: UITableViewCell {
         firstNameLabel.text = model.title
         lastNameLabel.text = model.subtitle
     }
+    
+    func configureCellForRealm(with model: FriendModel) {
+        firstNameLabel.text = model.firstName
+        lastNameLabel.text = model.lastName
+    }
 }
 
 // MARK: - Private

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 /// Контроллер сцены "Группы".
 final class GroupsViewController: UIViewController {
@@ -18,6 +19,14 @@ final class GroupsViewController: UIViewController {
     
     ///  Свойство, обрабатывающее исходящие события.
     var output: GroupsViewOutput?
+    
+    let realm = RealmCacheService()
+
+    private var groupsRespons: Results<GroupModel>? {
+        realm.read(GroupModel.self)
+    }
+
+    private var notificationToken: NotificationToken?
     
     private let imageProvider: ImageLoaderHelperProtocol
 
@@ -61,6 +70,7 @@ final class GroupsViewController: UIViewController {
         setupTableView()
         setupConstraints()
         output?.loadGroups()
+        createNotificationToken()
         tableView.refreshControl = refreshControl
     }
     
@@ -80,7 +90,7 @@ extension GroupsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return groups.count
+        return groupsRespons?.count ?? 0 //groups.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -90,13 +100,20 @@ extension GroupsViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         
-        let item = groups[indexPath.row]
-        
-        imageProvider.loadImage(url: item.icon) { image in
-            cell.iconGroup = image
+        if let groups = groupsRespons {
+            imageProvider.loadImage(url: groups[indexPath.row].photo50) { image in
+                cell.iconGroup = image
+            }
+            cell.configureCellForRealm(with: groups[indexPath.row])
         }
         
-        cell.configureCell(With: item)
+//        let item = groups[indexPath.row]
+//
+//        imageProvider.loadImage(url: item.icon) { image in
+//            cell.iconGroup = image
+//        }
+//
+//        cell.configureCell(With: item)
         
         return cell
     }
@@ -145,5 +162,32 @@ private extension GroupsViewController {
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+    }
+    
+    func createNotificationToken() {
+        notificationToken = groupsRespons?.observe { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .initial(let groupsData):
+                print("\(groupsData.count)")
+            case .update(_,
+                         deletions: let deletions,
+                         insertions: let insertions,
+                         modifications: let modifications):
+                let deletionsIndexpath = deletions.map { IndexPath(row: $0, section: 0) }
+                let insertionsIndexpath = insertions.map { IndexPath(row: $0, section: 0) }
+                let modificationsIndexpath = modifications.map { IndexPath(row: $0, section: 0) }
+
+                DispatchQueue.main.async {
+                    self.tableView.beginUpdates()
+                    self.tableView.deleteRows(at: deletionsIndexpath, with: .automatic)
+                    self.tableView.insertRows(at: insertionsIndexpath, with: .automatic)
+                    self.tableView.reloadRows(at: modificationsIndexpath, with: .automatic)
+                    self.tableView.endUpdates()
+                }
+            case .error(let error):
+                print("\(error)")
+            }
+        }
     }
 }
