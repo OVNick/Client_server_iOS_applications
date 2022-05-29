@@ -58,6 +58,10 @@ final class GroupCell: UITableViewCell {
     func configureCell(With model: GroupItemModel) {
         nameLabel.text = model.title
     }
+    
+    func configureCellForRealm(with model: GroupModel) {
+        nameLabel.text = model.name
+    }
 }
 
 

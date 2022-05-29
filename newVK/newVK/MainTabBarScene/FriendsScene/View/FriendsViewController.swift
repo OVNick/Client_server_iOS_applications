@@ -101,6 +101,7 @@ extension FriendsViewController: UITableViewDelegate, UITableViewDataSource {
         
         if let friends = friendsRespons {
             imageProvider.loadImage(url: friends[indexPath.row].photo50) { image in
+                
                 cell.iconFriend = image
             }
             
