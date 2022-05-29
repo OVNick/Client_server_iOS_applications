@@ -20,6 +20,7 @@
 		A83CA4822823ABF3009A9F8D /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83CA4812823ABF3009A9F8D /* FriendsViewController.swift */; };
 		A83CA4842823AC79009A9F8D /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83CA4832823AC79009A9F8D /* NewsViewController.swift */; };
 		A83CA4862823ACB9009A9F8D /* GroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83CA4852823ACB9009A9F8D /* GroupsViewController.swift */; };
+		A84CD2BF2843528800FD1B51 /* RealmCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84CD2BE2843528800FD1B51 /* RealmCacheService.swift */; };
 		A84D8E8F282B07DF006789DE /* GroupsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = A84D8E8E282B07DE006789DE /* GroupsAssembly.swift */; };
 		A88296172811C5CD00B9EF10 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88296162811C5CD00B9EF10 /* Session.swift */; };
 		A88921842832CB700084E7AB /* GroupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A88921832832CB700084E7AB /* GroupModel.swift */; };
@@ -85,6 +86,7 @@
 		A83CA4812823ABF3009A9F8D /* FriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		A83CA4832823AC79009A9F8D /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		A83CA4852823ACB9009A9F8D /* GroupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsViewController.swift; sourceTree = "<group>"; };
+		A84CD2BE2843528800FD1B51 /* RealmCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmCacheService.swift; sourceTree = "<group>"; };
 		A84D8E8E282B07DE006789DE /* GroupsAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsAssembly.swift; sourceTree = "<group>"; };
 		A88296162811C5CD00B9EF10 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		A88921832832CB700084E7AB /* GroupModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupModel.swift; sourceTree = "<group>"; };
@@ -590,6 +592,7 @@
 			children = (
 				A8FB5C27282A46EA009DCC2D /* Model */,
 				A88296162811C5CD00B9EF10 /* Session.swift */,
+				A84CD2BE2843528800FD1B51 /* RealmCacheService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -742,6 +745,7 @@
 				A88DFED32810845400662775 /* AppDelegate.swift in Sources */,
 				A8CCE77A283102C600FCB199 /* GroupsViewInput.swift in Sources */,
 				A8FB5C3A282AAE87009DCC2D /* ImageLoaderHelper.swift in Sources */,
+				A84CD2BF2843528800FD1B51 /* RealmCacheService.swift in Sources */,
 				A8CCE778283101C400FCB199 /* GroupsServiceInput.swift in Sources */,
 				A8CCE7722830FD9000FCB199 /* FriendsServiceInput.swift in Sources */,
 				A8FB5C38282AACD6009DCC2D /* ImageLoaderService.swift in Sources */,
